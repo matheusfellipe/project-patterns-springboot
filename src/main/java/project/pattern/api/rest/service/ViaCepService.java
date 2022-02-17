@@ -1,10 +1,10 @@
-package service;
+package project.pattern.api.rest.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import model.Address;
+import project.pattern.api.rest.model.Address;
 
 
 @FeignClient(name = "viacep", url = "https://viacep.com.br/ws")

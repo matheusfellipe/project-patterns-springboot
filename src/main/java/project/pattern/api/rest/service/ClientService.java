@@ -1,6 +1,6 @@
-package service;
+package project.pattern.api.rest.service;
 
-import model.Client;
+import project.pattern.api.rest.model.Client;
 
 
 public interface ClientService {

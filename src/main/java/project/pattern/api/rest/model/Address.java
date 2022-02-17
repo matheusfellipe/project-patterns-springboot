@@ -1,4 +1,4 @@
-package model;
+package project.pattern.api.rest.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

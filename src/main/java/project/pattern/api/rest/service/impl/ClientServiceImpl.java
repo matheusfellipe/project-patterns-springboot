@@ -1,30 +1,26 @@
-package impl;
+package project.pattern.api.rest.service.impl;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import model.Client;
-import model.ClientRepository;
-import model.Address;
-import model.AddressRepository;
-import service.ClientService;
-import service.ViaCepService;
-
+import project.pattern.api.rest.model.Address;
+import project.pattern.api.rest.model.AddressRepository;
+import project.pattern.api.rest.model.Client;
+import project.pattern.api.rest.model.ClientRepository;
+import project.pattern.api.rest.service.ClientService;
+import project.pattern.api.rest.service.ViaCepService;
 
 @Service
 public class ClientServiceImpl implements ClientService {
 
-	
 	@Autowired
 	private ClientRepository clientRepository;
 	@Autowired
 	private AddressRepository addressRepository;
 	@Autowired
 	private ViaCepService viaCepService;
-	
-	
 
 	@Override
 	public Iterable<Client> searchAll() {
@@ -41,7 +37,7 @@ public class ClientServiceImpl implements ClientService {
 
 	@Override
 	public void insert(Client client) {
-		salveClientWithCep(client);
+		saveClientWithCep(client);
 	}
 
 	@Override
@@ -49,7 +45,7 @@ public class ClientServiceImpl implements ClientService {
 		// Buscar Cliente por ID, caso exista:
 		Optional<Client> clienteBd = clientRepository.findById(id);
 		if (clienteBd.isPresent()) {
-			salveClientWithCep(client);
+			saveClientWithCep(client);
 		}
 	}
 
@@ -59,7 +55,7 @@ public class ClientServiceImpl implements ClientService {
 		clientRepository.deleteById(id);
 	}
 
-	private void salveClientWithCep(Client cliente) {
+	private void saveClientWithCep(Client cliente) {
 		// Verificar se o Endereco do Cliente já existe (pelo CEP).
 		String cep = cliente.getAddress().getCep();
 		Address address = addressRepository.findById(cep).orElseGet(() -> {

@@ -1,4 +1,4 @@
-package controller;
+package project.pattern.api.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,41 +11,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import model.Client;
-import service.ClientService;
-
+import project.pattern.api.rest.model.Client;
+import project.pattern.api.rest.service.ClientService;
 
 @RestController
-@RequestMapping("clientes")
+@RequestMapping("client")
 public class ClientRestController {
 
 	@Autowired
 	private ClientService clientService;
 
 	@GetMapping
-	public ResponseEntity<Iterable<Client>> buscarTodos() {
+	public ResponseEntity<Iterable<Client>> searchAll() {
 		return ResponseEntity.ok(clientService.searchAll());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Client> buscarPorId(@PathVariable Long id) {
+	public ResponseEntity<Client> searchById(@PathVariable Long id) {
 		return ResponseEntity.ok(clientService.searchById(id));
 	}
 
 	@PostMapping
-	public ResponseEntity<Client> inserir(@RequestBody Client client) {
+	public ResponseEntity<Client> insert(@RequestBody Client client) {
 		clientService.insert(client);
 		return ResponseEntity.ok(client);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Client> atualizar(@PathVariable Long id, @RequestBody Client client) {
+	public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody Client client) {
 		clientService.update(id, client);
 		return ResponseEntity.ok(client);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deletar(@PathVariable Long id) {
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		clientService.delete(id);
 		return ResponseEntity.ok().build();
 	}
